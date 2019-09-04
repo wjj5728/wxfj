@@ -17,7 +17,6 @@ class Res {
     }
   }
   getRes(name) {
-    console.log(name);
     return this.list[name];
   }
   loadImage(url, compelte) {
@@ -25,7 +24,6 @@ class Res {
     image.crossOrigin = "wjj";
     image.onload = () => {
       this.list[url] = image;
-      console.log(image.width);
       compelte && compelte();
       //   image = null;
     };

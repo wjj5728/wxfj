@@ -12,14 +12,15 @@ export default class Bullet extends baseSprite {
   }
   onEnable() {
     // console.log("enable");
+    this.visible = true;
     this.x = data.bulletX - this.width / 2;
     this.y = data.bulletY;
   }
   render() {
-    this.y -= 10;
+    this.y -= 5;
     this.drawToCanvas(this.bullet, this.x, this.y, this.bullet.width, this.bullet.height);
   }
   recover() {
-    console.log("recover");
+    // console.log("recover");
   }
 }

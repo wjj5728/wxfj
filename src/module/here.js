@@ -25,7 +25,7 @@ class Hero extends baseSprite {
     // this.ctx.translate(this.originX, this.originY);
     // this.drawToCanvas(this.hero1, this.x, this.y, this.hero1.width, this.hero1.height);
     // this.ctx.translate(0, 0);
-    this.ani(["../Resources/hero1.png", "../Resources/hero2.png"]);
+    this.ani(["../Resources/hero2.png", "../Resources/hero1.png"]);
   }
   initEvent() {
     this.canvas.addEventListener("touchstart", e => {

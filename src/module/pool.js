@@ -1,4 +1,4 @@
-export default class Poll {
+export default class Pool {
   constructor() {}
   getItemByName(name, instance, ...arg) {
     this[name] || (this[name] = []);
@@ -7,7 +7,7 @@ export default class Poll {
       ins.onEnable && ins.onEnable();
       return ins;
     } else {
-      let ins = this[name].pop();
+      let ins = this[name].shift();
       ins.onEnable && ins.onEnable();
       return ins;
     }
@@ -15,6 +15,5 @@ export default class Poll {
   recover(name, instance) {
     instance.recover && instance.recover();
     this[name].push(instance);
-    console.log(this[name]);
   }
 }

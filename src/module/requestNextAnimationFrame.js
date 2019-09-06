@@ -1,48 +1,25 @@
-window.requestNextAnimationFrame = (function() {
-  var originalWebkitMethod,
-    wrapper = undefined,
-    callback = undefined,
-    geckoVersion = 0,
-    userAgent = navigator.userAgent,
-    index = 0,
-    self = this;
-  if (window.webkitRequestAnimationFrame) {
-    wrapper = function(time) {
-      if (time === undefined) {
-        time += new Date();
-      }
-      self.callback(time);
-    };
-    originalWebkitMethod = window.webkitRequestAnimationFrame;
-    window.webkitRequestAnimationFrame = function(callback, element) {
-      self.callback = callback;
-      originalWebkitMethod(wrapper, element);
+(function() {
+  var lastTime = 0;
+  var vendors = ["webkit", "moz"];
+  for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
+    // Webkit中此取消方法的名字变了
+    window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
+  }
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = function(callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+      var id = window.setTimeout(function() {
+        callback(currTime + timeToCall);
+      }, timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
     };
   }
-  if (window.mozRequestAnimationFrame) {
-    index = userAgent.indexOf("rv:");
-    if (userAgent.indexOf("Gecko") != -1) {
-      geckoVersion = userAgent.substr(index + 3, 3);
-      if (geckoVersion === "2.0") {
-        window.mozRequestAnimationFrame = undefined;
-      }
-    }
+  if (!window.cancelAnimationFrame) {
+    window.cancelAnimationFrame = function(id) {
+      clearTimeout(id);
+    };
   }
-
-  return (
-    window.requestNextAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(callback, element) {
-      var start, finish;
-      window.setTimeout(function() {
-        start = +new Date();
-        callback(start);
-        finish = +new Date();
-        self.timeout = 1000 / 60 - (finish - start);
-      }, self.timeout);
-    }
-  );
 })();

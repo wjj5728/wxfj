@@ -11,7 +11,6 @@ export default class Bullet extends baseSprite {
     this.bullet = window.P.Res().getRes("../Resources/bullet" + this.type + ".png");
   }
   onEnable() {
-    // console.log("enable");
     this.visible = true;
     this.x = data.bulletX - this.width / 2;
     this.y = data.bulletY;
@@ -20,7 +19,5 @@ export default class Bullet extends baseSprite {
     this.y -= 5;
     this.drawToCanvas(this.bullet, this.x, this.y, this.bullet.width, this.bullet.height);
   }
-  recover() {
-    // console.log("recover");
-  }
+  recover() {}
 }

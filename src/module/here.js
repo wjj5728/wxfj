@@ -46,7 +46,6 @@ class Hero extends baseSprite {
   isTouchHero() {
     let ra = 30;
     if (this.startX > this.x + ra && this.startX < this.x + this.width - ra && this.startY > this.y + ra && this.startY < this.y + this.height - ra) {
-      console.log("in");
       this.isTouch = true;
     } else {
       this.isTouch = false;

@@ -16,7 +16,7 @@ let P = (window.P = {
   },
   render() {
     let _this = this;
-    let render = new Main(this.ctx, this.canvas);
+    this.instance = new Main(this.ctx, this.canvas);
   },
   Brower(width) {
     this.screenHeight = window.innerHeight || document.body.clientHeight || document.documentElement.clientHeight;
@@ -45,7 +45,12 @@ let P = (window.P = {
           "../Resources/enemy0_down1.png",
           "../Resources/enemy0_down2.png",
           "../Resources/enemy0_down3.png",
-          "../Resources/enemy0_down4.png"
+          "../Resources/enemy0_down4.png",
+          "../Resources/game_pause_nor.png",
+          "../Resources/game_pause_pressed.png",
+          "../Resources/game_resume_nor.png",
+          "../Resources/game_resume_pressed.png",
+          "../Resources/score.png"
         ],
         () => {
           setTimeout(() => {
@@ -56,7 +61,7 @@ let P = (window.P = {
       return this.res;
     }
   },
-  gameStatus: false,
+  gameStatus: true,
   Pool() {
     if (this.poll) {
       return this.poll;
